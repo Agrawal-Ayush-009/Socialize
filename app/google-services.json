@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "421890675636",
+    "project_id": "socialize-ec173",
+    "storage_bucket": "socialize-ec173.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:421890675636:android:680ee9de5b3981c45018e1",
+        "android_client_info": {
+          "package_name": "com.example.socialize"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "421890675636-2asnsgtn6fa0mp42muusu1s2hb1i3sh6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.socialize",
+            "certificate_hash": "657461f78553b35251c6e3ffa0de2c1d58778543"
+          }
+        },
+        {
+          "client_id": "421890675636-hjd9k5mu5ved4mig4u4fsfcm86gepr7r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2gA1fX50emKFzJ9h1RXxdw0UXMFUqy6I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "421890675636-7va5e1mis3ki754vo1nbfrr9r2npeuqe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
