@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -17,6 +18,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -87,27 +89,15 @@ class SignInActivity : AppCompatActivity() {
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>){
 
-        if(completedTask.isSuccessful){
+        try {
+            val account : GoogleSignInAccount = completedTask.getResult(ApiException :: class.java)!!
 
-            val account : GoogleSignInAccount = completedTask.result
-            firebaseAuthWithGoogle(account.idToken)
-
-        }else{
-            Toast.makeText(this, completedTask.exception.toString(), Toast.LENGTH_SHORT).show()
+            Log.d(TAG,"FireBaseAuthWithGoogle: " + account.id)
+            firebaseAuthWithGoogle(account.idToken!!)
+        }catch (e: ApiException){
+            // Google Sign In failed, update UI appropriately
+            Log.w(TAG, "signInResult: failedCode = " + e.statusCode)
         }
-//        try {
-//            val account : GoogleSignInAccount = completedTask.getResult(ApiException :: class.java)!!
-//
-//            Toast.makeText(this, "Choose an Account", Toast.LENGTH_SHORT).show()
-//
-//            Log.d(TAG,"FireBaseAuthWithGoogle: " + account.id)
-//            firebaseAuthWithGoogle(account.idToken!!)
-//        }catch (e: ApiException){
-//            // Google Sign In failed, update UI appropriately
-//            Log.w(TAG, "signInResult: failedCode = " + e.statusCode)
-//
-//            Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
-//        }
     }
 
 
@@ -129,6 +119,7 @@ class SignInActivity : AppCompatActivity() {
     }
 
 
+    //[Update UI]
     private fun updateUI(firebaseUser: FirebaseUser?) {
 
         if(firebaseUser != null){
@@ -146,43 +137,6 @@ class SignInActivity : AppCompatActivity() {
             findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE
             findViewById<ImageView>(R.id.google_image).visibility = View.VISIBLE
         }
-
-
-//        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-//        auth.signInWithCredential(credential).addOnCompleteListener {
-//            if(it.isSuccessful){
-//                val intent = Intent(this, MainActivity :: class.java)
-//                startActivity(intent)
-//                finish()
-//            }else{
-//                findViewById<Button>(R.id.BtnGoogleSignIn).visibility = View.VISIBLE
-//                findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE
-//                findViewById<ImageView>(R.id.google_image).visibility = View.GONE
-//                Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
-//
-//            }
-//        }
     }
 
-
-    // [END onActivityResult]
-
-
-
-
-
-
-
-//    private fun updateUI(firebaseUser: FirebaseUser?) {
-//        if(firebaseUser != null){
-//            Toast.makeText(this,"going to main activity", Toast.LENGTH_SHORT).show()
-//            val mainActivityIntent = Intent(this, MainActivity :: class.java)
-//            startActivity(mainActivityIntent)
-//            finish()
-//
-//        }else{
-//            findViewById<Button>(R.id.BtnGoogleSignIn).visibility = View.VISIBLE
-//            findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE
-//        }
-//    }
 }
